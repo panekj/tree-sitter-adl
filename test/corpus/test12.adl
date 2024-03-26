@@ -1,0 +1,38 @@
+================================================================================
+Test12
+================================================================================
+module test12
+{
+    struct X
+    {
+        Double v;
+        String v;
+    };
+
+    union Y
+    {
+        Double v;
+        String v;
+    };
+};
+
+--------------------------------------------------------------------------------
+
+ (adl
+      (scoped_name)
+      (struct
+        (name)
+        (field
+          (type_expr
+            (scoped_name)))
+        (field
+          (type_expr
+            (scoped_name))))
+      (union
+        (name)
+        (field
+          (type_expr
+            (scoped_name)))
+        (field
+          (type_expr
+            (scoped_name)))))

@@ -1,0 +1,69 @@
+================================================================================
+Test02
+================================================================================
+// sdaf
+module test2
+{
+
+@Doc "An empty structure."
+struct S0
+{
+};
+
+/// A structure containing primitives.
+///
+/// It has two fields: an integer x and a String y.
+struct S1
+{
+    Int32 x;
+    String y;
+};
+
+@Doc "A structure containing a vector."
+struct S2
+{
+    String f1;
+    Double f2;
+    Vector<Int32> f3;
+};
+
+
+};
+
+--------------------------------------------------------------------------------
+
+(adl
+    (scoped_name)
+    (struct
+    (annon
+        (scoped_name)
+        (json
+        (string)))
+    (name))
+    (struct
+    (doc_comment)
+    (doc_comment)
+    (doc_comment)
+    (name)
+    (field
+        (type_expr
+        (scoped_name)))
+    (field
+        (type_expr
+        (scoped_name))))
+    (struct
+    (annon
+        (scoped_name)
+        (json
+        (string)))
+    (name)
+    (field
+        (type_expr
+        (scoped_name)))
+    (field
+        (type_expr
+        (scoped_name)))
+    (field
+        (type_expr
+        (scoped_name)
+        (type_param)))))

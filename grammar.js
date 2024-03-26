@@ -15,10 +15,59 @@ module.exports = grammar({
 
   extras: $ => [
     /\s/,
+    $._comment
   ],
 
+  word: $ => $._ident,
+
   rules: {
-    json: $ => repeat($._value),
+    adl: $ => seq(repeat($._aordc), 'module', $.scoped_name, '{', repeat($._import), repeat($._top), '}', ';'),
+    _aordc: $ => choice(
+      $.annon,
+      $.doc_comment,
+    ),
+    annon: $ => seq('@', $.scoped_name, optional($.json)),
+    doc_comment: $ => seq('///', /[^\n]*/, /\n/),
+    _comment: $ => seq('//', choice(/[^/]/, "\n"), /[^\n]*/, /\n/),
+    scoped_name: $ => seq(repeat(seq($._ident, ".")), $._ident),
+    _import: $ => choice(
+      $.import_star,
+      $.import,
+    ),
+    import_star: $ => seq("import", $.scoped_name, ".*", ";"),
+    import: $ => seq("import", $.scoped_name, ";"),
+    _top: $ => choice(
+      seq($._remote_annon),
+      seq($._decl),
+    ),
+    _remote_annon: $ => choice(
+      $.module_annon,
+      $.decl_annon,
+      $.field_annon,
+    ),
+    module_annon: $=> seq("annotation", $.scoped_name, $.json, ";"),
+    decl_annon: $=> seq("annotation", $.scoped_name, $._ident, $.json, ";"),
+    field_annon: $=> seq("annotation", $.scoped_name, "::", $._ident, $._ident, $.json, ";"),
+    _decl: $ => choice(
+      $.struct,
+      $.union,
+      $.type_alias,
+      $.newtype,
+    ),
+    struct: $ => seq(repeat($._aordc), "struct", alias($._ident, $.name), optional($.type_param), "{", repeat($.field), "}", ";"),
+    union: $ => seq(repeat($._aordc), "union", alias($._ident, $.name), optional($.type_param), "{", repeat($.field), "}", ";"),
+    type_alias: $ => seq(repeat($._aordc), "type", alias($._ident, $.name), optional($.type_param), "=", $.type_expr, ";"),
+    newtype: $ => seq(repeat($._aordc), "newtype", alias($._ident, $.name), optional($.type_param), "=", $.type_expr, optional($.default_val), ";"),
+    type_param: $ => seq('<', listSep1($._ident, ","),'>'),
+    field: $ => seq(repeat($._aordc), $.type_expr, $._ident, optional($.default_val), ";"),
+    type_expr: $ => choice(
+      seq($.scoped_name, $.type_param),
+      seq($.scoped_name),
+    ),
+    default_val: $ => seq("=", $.json),
+    _ident: $ => /[a-zA-Z_]+[a-zA-Z0-9_]*/,
+
+    json: $ => seq($._value),
     _value: $ => choice(
       $.object,
       $.array,
@@ -28,14 +77,14 @@ module.exports = grammar({
       $.false,
       $.null,
     ),
-    object: $ => seq('{', commaSep($.pair), '}'),
-    pair: $ => seq(field('key', $.string),':',field('value', $._value)),
-    array: $ => seq('[', commaSep($._value), ']'),
+    object: $ => seq('{', listSep($.pair, ','), '}'),
+    pair: $ => seq(alias($.string, $.key),':',field('value', $._value)),
+    array: $ => seq('[', listSep($._value, ','), ']'),
     string: $ => choice(
       seq('"', '"'),
-      seq('"', $.string_content, '"'),
+      seq('"', $._string_content, '"'),
     ),
-    string_content: $ => repeat1(choice(
+    _string_content: $ => repeat1(choice(
       token.immediate(prec(1, /[^\\"\n]+/)),
       $.escape_sequence,
     )),
@@ -63,7 +112,7 @@ module.exports = grammar({
     true: _ => 'true',
     false: _ => 'false',
     null: _ => 'null',
-    comment: _ => token(choice(
+    jscomment: _ => token(choice(
       seq('//', /.*/),
       seq(
         '/*',
@@ -77,17 +126,19 @@ module.exports = grammar({
 /**
  * Creates a rule to match one or more of the rules separated by a comma
  * @param {RuleOrLiteral} rule
+ * @param {string} sep
  * @return {SeqRule}
  */
-function commaSep1(rule) {
-  return seq(rule, repeat(seq(',', rule)));
+function listSep1(rule, sep) {
+  return seq(rule, repeat(seq(sep, rule)));
 }
 
 /**
  * Creates a rule to optionally match one or more of the rules separated by a comma
  * @param {RuleOrLiteral} rule
+ * @param {string} sep
  * @return {ChoiceRule}
  */
-function commaSep(rule) {
-  return optional(commaSep1(rule));
+function listSep(rule, sep) {
+  return optional(listSep1(rule, sep));
 }
