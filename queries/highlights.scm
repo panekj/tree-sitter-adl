@@ -10,8 +10,11 @@
 ] @keyword
 
 (scoped_name) @variable
-
+(comment) @comment
+(doc_comment) @info
 (name) @type
+
+(ERROR) @error
 
 (fname) @property
 

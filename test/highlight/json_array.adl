@@ -23,6 +23,7 @@
     //     ^ type.param
     //        ^ property
     X c;
-//  ^
   };
+  struct Y {
+    //     ^ @error
 };
