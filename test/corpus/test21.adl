@@ -45,6 +45,7 @@ module test21
     (json
       (number)))
   (scoped_name)
+  (comment)
   (type_alias
     (name)
     (type_expr
@@ -57,10 +58,13 @@ module test21
     (name)
     (field
       (type_expr
-        (scoped_name)))
+        (scoped_name))
+        (fname))
     (field
       (type_expr
-        (scoped_name))))
+        (scoped_name))
+        (fname))
+        )
   (type_alias
     (name)
     (type_expr
@@ -74,16 +78,19 @@ module test21
     (field
       (doc_comment)
       (type_expr
-        (scoped_name)))
+        (scoped_name))
+        (fname))
     (field
       (doc_comment)
       (type_expr
-        (scoped_name)))
+        (scoped_name))
+        (fname))
     (field
       (annon
         (scoped_name))
       (type_expr
-        (scoped_name))))
+        (scoped_name))
+        (fname)))
   (decl_annon
     (scoped_name)
     (json

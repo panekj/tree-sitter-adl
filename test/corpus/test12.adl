@@ -24,15 +24,19 @@ module test12
         (name)
         (field
           (type_expr
-            (scoped_name)))
+            (scoped_name))
+            (fname))
         (field
           (type_expr
-            (scoped_name))))
+            (scoped_name))
+            (fname)))
       (union
         (name)
         (field
           (type_expr
-            (scoped_name)))
+            (scoped_name))
+            (fname))
         (field
           (type_expr
-            (scoped_name)))))
+            (scoped_name))
+            (fname))))

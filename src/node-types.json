@@ -151,11 +151,6 @@
     }
   },
   {
-    "type": "doc_comment",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "field",
     "named": true,
     "fields": {},
@@ -173,6 +168,10 @@
         },
         {
           "type": "doc_comment",
+          "named": true
+        },
+        {
+          "type": "fname",
           "named": true
         },
         {
@@ -542,10 +541,6 @@
     }
   },
   {
-    "type": "\n",
-    "named": false
-  },
-  {
     "type": "\"",
     "named": false
   },
@@ -559,14 +554,6 @@
   },
   {
     "type": ".*",
-    "named": false
-  },
-  {
-    "type": "//",
-    "named": false
-  },
-  {
-    "type": "///",
     "named": false
   },
   {
@@ -610,11 +597,23 @@
     "named": false
   },
   {
+    "type": "comment",
+    "named": true
+  },
+  {
+    "type": "doc_comment",
+    "named": true
+  },
+  {
     "type": "escape_sequence",
     "named": true
   },
   {
     "type": "false",
+    "named": true
+  },
+  {
+    "type": "fname",
     "named": true
   },
   {

@@ -1,7 +1,6 @@
 ================================================================================
 Test02
 ================================================================================
-// sdaf
 module test2
 {
 
@@ -47,10 +46,12 @@ struct S2
     (name)
     (field
         (type_expr
-        (scoped_name)))
+        (scoped_name))
+        (fname))
     (field
         (type_expr
-        (scoped_name))))
+        (scoped_name))
+        (fname)))
     (struct
     (annon
         (scoped_name)
@@ -59,11 +60,14 @@ struct S2
     (name)
     (field
         (type_expr
-        (scoped_name)))
+        (scoped_name))
+        (fname))
     (field
         (type_expr
-        (scoped_name)))
+        (scoped_name))
+        (fname))
     (field
         (type_expr
         (scoped_name)
-        (type_param)))))
+        (type_param))
+        (fname))))

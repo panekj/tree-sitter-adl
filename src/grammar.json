@@ -87,51 +87,49 @@
       ]
     },
     "doc_comment": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "///"
-        },
-        {
-          "type": "PATTERN",
-          "value": "[^\\n]*"
-        },
-        {
-          "type": "PATTERN",
-          "value": "\\n"
-        }
-      ]
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "PATTERN",
+            "value": "\\/\\/\\/[^\\n]*\\n"
+          }
+        ]
+      }
     },
-    "_comment": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "//"
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "PATTERN",
-              "value": "[^/]"
-            },
-            {
-              "type": "STRING",
-              "value": "\n"
-            }
-          ]
-        },
-        {
-          "type": "PATTERN",
-          "value": "[^\\n]*"
-        },
-        {
-          "type": "PATTERN",
-          "value": "\\n"
-        }
-      ]
+    "comment": {
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "//"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "[^/]"
+              },
+              {
+                "type": "STRING",
+                "value": "\n"
+              }
+            ]
+          },
+          {
+            "type": "PATTERN",
+            "value": "[^\\n]*"
+          },
+          {
+            "type": "PATTERN",
+            "value": "\\n"
+          }
+        ]
+      }
     },
     "scoped_name": {
       "type": "SEQ",
@@ -624,8 +622,13 @@
           "name": "type_expr"
         },
         {
-          "type": "SYMBOL",
-          "name": "_ident"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_ident"
+          },
+          "named": true,
+          "value": "fname"
         },
         {
           "type": "CHOICE",
@@ -1156,44 +1159,6 @@
     "null": {
       "type": "STRING",
       "value": "null"
-    },
-    "jscomment": {
-      "type": "TOKEN",
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "//"
-              },
-              {
-                "type": "PATTERN",
-                "value": ".*"
-              }
-            ]
-          },
-          {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "/*"
-              },
-              {
-                "type": "PATTERN",
-                "value": "[^*]*\\*+([^/*][^*]*\\*+)*"
-              },
-              {
-                "type": "STRING",
-                "value": "/"
-              }
-            ]
-          }
-        ]
-      }
     }
   },
   "extras": [
@@ -1203,7 +1168,7 @@
     },
     {
       "type": "SYMBOL",
-      "name": "_comment"
+      "name": "comment"
     }
   ],
   "conflicts": [],

@@ -1,0 +1,28 @@
+@A [
+  345,
+  /// <- number
+  10.1,
+  10,
+  -10,
+  null,
+  true,
+  false,
+  { "stuff": "good" }
+    // <- string.special.key
+] module a.d.c {
+  // <- keyword
+  //     ^ variable
+  struct X {
+  // <- keyword
+  //     ^ type
+    Void a;
+    // <- type
+    //   ^ property
+    Vector<X> b;
+    // <- generic
+    //     ^ type.param
+    //        ^ property
+    X c;
+//  ^
+  };
+};

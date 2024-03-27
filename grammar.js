@@ -15,7 +15,7 @@ module.exports = grammar({
 
   extras: $ => [
     /\s/,
-    $._comment
+    $.comment
   ],
 
   word: $ => $._ident,
@@ -27,8 +27,9 @@ module.exports = grammar({
       $.doc_comment,
     ),
     annon: $ => seq('@', $.scoped_name, optional($.json)),
-    doc_comment: $ => seq('///', /[^\n]*/, /\n/),
-    _comment: $ => seq('//', choice(/[^/]/, "\n"), /[^\n]*/, /\n/),
+    // doc_comment: $ => seq('///', /[^\n]*/, /\n/),
+    doc_comment: $ => token(seq(/\/\/\/[^\n]*\n/)),
+    comment: $ => token(seq('//', choice(/[^/]/, "\n"), /[^\n]*/, /\n/)),
     scoped_name: $ => seq(repeat(seq($._ident, ".")), $._ident),
     _import: $ => choice(
       $.import_star,
@@ -59,7 +60,7 @@ module.exports = grammar({
     type_alias: $ => seq(repeat($._aordc), "type", alias($._ident, $.name), optional($.type_param), "=", $.type_expr, ";"),
     newtype: $ => seq(repeat($._aordc), "newtype", alias($._ident, $.name), optional($.type_param), "=", $.type_expr, optional($.default_val), ";"),
     type_param: $ => seq('<', listSep1($._ident, ","),'>'),
-    field: $ => seq(repeat($._aordc), $.type_expr, $._ident, optional($.default_val), ";"),
+    field: $ => seq(repeat($._aordc), $.type_expr, alias($._ident, $.fname), optional($.default_val), ";"),
     type_expr: $ => choice(
       seq($.scoped_name, $.type_param),
       seq($.scoped_name),
@@ -112,14 +113,14 @@ module.exports = grammar({
     true: _ => 'true',
     false: _ => 'false',
     null: _ => 'null',
-    jscomment: _ => token(choice(
-      seq('//', /.*/),
-      seq(
-        '/*',
-        /[^*]*\*+([^/*][^*]*\*+)*/,
-        '/',
-      ),
-    )),
+    // jscomment: _ => token(choice(
+    //   seq('//', /.*/),
+    //   seq(
+    //     '/*',
+    //     /[^*]*\*+([^/*][^*]*\*+)*/,
+    //     '/',
+    //   ),
+    // )),
   },
 });
 
