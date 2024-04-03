@@ -60,9 +60,10 @@ module.exports = grammar({
     type_alias: $ => seq(repeat($._aordc), "type", alias($._ident, $.name), optional($.type_param), "=", $.type_expr, ";"),
     newtype: $ => seq(repeat($._aordc), "newtype", alias($._ident, $.name), optional($.type_param), "=", $.type_expr, optional($.default_val), ";"),
     type_param: $ => seq('<', listSep1($._ident, ","),'>'),
+    type_expr_params: $ => seq('<', listSep1(alias($.type_expr,$.param), ","),'>'),
     field: $ => seq(repeat($._aordc), $.type_expr, alias($._ident, $.fname), optional($.default_val), ";"),
     type_expr: $ => choice(
-      seq($.scoped_name, $.type_param),
+      seq($.scoped_name, $.type_expr_params),
       seq($.scoped_name),
     ),
     default_val: $ => seq("=", $.json),

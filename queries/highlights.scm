@@ -9,25 +9,23 @@
 "annotation"
 ] @keyword
 
-(scoped_name) @variable
+(adl (scoped_name)) @namespace
 (comment) @comment
-(doc_comment) @info
+(doc_comment) @comment.block.documentation
 (name) @type
 
-(ERROR) @error
-
-(fname) @property
+(fname) @variable.other.member
 
 (type_expr (scoped_name) @type)
 
-(type_expr (scoped_name) @generic (type_param) @type.param)
+(type_expr_params (param (scoped_name) @type.parameter))
 
 ; json
-(key) @string.special.key
+(key) @string.special
 
 (string) @string
 
-(number) @number
+(number) @constant.numeric
 
 [
   (null)
@@ -35,5 +33,5 @@
   (false)
 ] @constant.builtin
 
-(escape_sequence) @escape
+(escape_sequence) @constant.character.escape
 

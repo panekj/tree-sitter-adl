@@ -1,6 +1,6 @@
 @A [
   345,
-  /// <- number
+  /// <- constant.numeric
   10.1,
   10,
   -10,
@@ -8,22 +8,24 @@
   true,
   false,
   { "stuff": "good" }
-    // <- string.special.key
+    // <- string.special
 ] module a.d.c {
   // <- keyword
-  //     ^ variable
+  //     ^ namespace
   struct X {
   // <- keyword
   //     ^ type
     Void a;
     // <- type
-    //   ^ property
+    //   ^ variable.other.member
     Vector<X> b;
-    // <- generic
-    //     ^ type.param
-    //        ^ property
-    X c;
+    // <- type
+    //     ^ type.parameter
+    //        ^ variable.other.member
+    X<A<B>> c;
+    // <- type
+    //^ type.parameter
+    //  ^ type.parameter
   };
-  struct Y {
-    //     ^ @error
+  struct Y {};
 };

@@ -404,6 +404,25 @@
     }
   },
   {
+    "type": "param",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "scoped_name",
+          "named": true
+        },
+        {
+          "type": "type_expr_params",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "scoped_name",
     "named": true,
     "fields": {}
@@ -498,7 +517,22 @@
           "named": true
         },
         {
-          "type": "type_param",
+          "type": "type_expr_params",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_expr_params",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "param",
           "named": true
         }
       ]
